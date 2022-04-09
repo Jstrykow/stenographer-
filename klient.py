@@ -8,10 +8,11 @@ with open("antygona.txt",encoding="utf8") as f:
 
 # bits = text_to_bits(antygona)
 #bits = bits[0:100]
-bits = '01'
+bits = '010101010101011111000'
 
 target_host = "127.0.0.1"
 target_port = 9998
+
 
 
 for b in bits:
@@ -22,7 +23,7 @@ for b in bits:
 
 
     # send of data
-    data = " "
+    data = "0"
     if b == '0':
         # data = "0"
         client.send(data.encode())

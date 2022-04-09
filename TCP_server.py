@@ -31,8 +31,4 @@ if __name__ == "__main__":
 In the TCP header are flags, which can contain some bit of information,
 for example, when we have two flags, we can send 2 bits
 1 1, 0 0, 1 1, 1 0, etc for more info
-
-
-
-
 """

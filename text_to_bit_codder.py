@@ -1,10 +1,9 @@
 
-"""
-antygona = ""
+
+"""antygona = ""
 with open("antygona.txt",encoding="utf8") as f:
     for line in f:
         antygona += line
-
 """
 # https://stackoverflow.com/questions/7396849/convert-binary-to-ascii-and-vice-versa
 def text_to_bits(text, encoding='utf-8', errors='surrogatepass'):
