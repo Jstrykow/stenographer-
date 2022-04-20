@@ -3,8 +3,11 @@ import socket
 import struct
 
 
+target_host = "127.0.0.1"
+target_port = 9998
+
 class TCPPacket:
-    def __init__(self, dport = 9998, sport = 65535, dst='127.0.0.1', src='127.0.0.1', data = 'Nothingn'):
+    def __init__(self, dport = target_port, sport = 65511, dst='127.0.0.1', src='127.0.0.1', data = 'abcd'):
         self.dport = dport
         self.sport = sport
         self.src_ip = src
@@ -96,11 +99,11 @@ class TCPPacket:
         tcp_flags_noc = (0 << 8)
         tcp_flags_cwr = (0 << 7)
         tcp_flags_ecn = (0 << 6)
-        tcp_flags_urg = (0 << 5)
+        tcp_flags_urg = (1 << 5)
         tcp_flags_ack = (0 << 4)
         tcp_flags_psh = (0 << 3)
         tcp_flags_rst = (0 << 2)
-        tcp_flags_syn = (1 << 1)
+        tcp_flags_syn = (0 << 1)
         tcp_flags_fin = (0)
 
         self.tcp_flags = tcp_flags_rsv + tcp_flags_noc + tcp_flags_cwr + \
@@ -114,7 +117,7 @@ class TCPPacket:
         self.tcp_chksum = 0
 
         # ---- [ TCP Urgent Pointer ]
-        self.tcp_urg_ptr = 0
+        self.tcp_urg_ptr = 1
 
 
         return
@@ -122,9 +125,21 @@ class TCPPacket:
 
 if __name__=='__main__':
             # Create Raw Socket
-    s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW)
+    client = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW)
 
     tcp = TCPPacket()
     tcp.assemble_tcp_feilds()
 
-    s.sendto(tcp.raw, ('127.0.0.1' , 9998 ))
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #client.bind(('', 10000))
+    client.connect((target_host, target_port))
+    #client.sendto(rw)
+    # response = client.recv(4096)
+    res = tcp.raw
+    print(res)
+    print(str(res))
+    # res = bytes(res, "utf-8")
+    client.send(tcp.raw)
+    print(res)
+    # print(response.decode())
+    client.close()

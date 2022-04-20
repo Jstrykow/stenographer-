@@ -9,17 +9,20 @@ def main():
     server.bind((bind_ip, bind_port))
     server.listen(5)
     print(f'[*] nasłuchiwanie na {bind_ip}:{bind_port}')
+    try: 
+        while True:
+            client, address = server.accept()
+            print(f"[*] Przyjęto połączenie od {address[0]}:{address[1]}")
+            client_handler = threading.Thread(target=handle_client, args=(client,))
+            client_handler.start()
+    except KeyboardInterrupt:
+        print("Caught keyboard interrupt, exiting")
 
-    while True:
-        client, address = server.accept()
-        print(f"[*] Przyjęto połączenie od {address[0]}:{address[1]}")
-        client_handler = threading.Thread(target=handle_client, args=(client,))
-        client_handler.start()
 
 def handle_client(client_socket):
     with client_socket as sock:
         res = sock.recv(1024)
-        res = res.decode("utf-8")
+        # res = bytes(res, " utf-8")
         print(f"[*] Odebrano: {res}")
         sock.send(b'ACKKK')
 

@@ -12,38 +12,16 @@ bits = '010101010101011111000'
 
 target_host = "127.0.0.1"
 target_port = 9998
+# 49152-65535
 
 
 
-for b in bits:
-    # making an socket
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    client.connect((target_host, target_port))
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#client.bind(('', 10000))
+client.connect((target_host, target_port))
 
+# response = client.recv(4096)
 
-    # send of data
-    data = "0"
-    if b == '0':
-        # data = "0"
-        client.send(data.encode())
-        client.send(data.encode())
-        client.send(data.encode())
-        print("0 sent")
-    elif b == '1':
-        # data = "1"
-        client.send(data.encode())
-        client.send(data.encode())
-        client.send(data.encode())
-        client.send(data.encode())
-        client.send(data.encode())
-        client.send(data.encode())
-        print("1 sent")
-    
-    print(f"{b} {data}")
-    # respond of data
-    response = client.recv(4096)
-
-    print(response.decode())
-    client.close()
- 
+# print(response.decode())
+client.close()
