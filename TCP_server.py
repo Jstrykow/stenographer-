@@ -24,7 +24,7 @@ def handle_client(client_socket):
         res = sock.recv(1024)
         # res = bytes(res, " utf-8")
         print(f"[*] Odebrano: {res}")
-        sock.send(b'ACKKK')
+        sock.close()
 
 
 if __name__ == "__main__":
