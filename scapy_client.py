@@ -27,16 +27,18 @@ thisdict = {
     "00" : pkts[0], 
     "01" : pkts[1],
     "10" : pkts[2],
-    "11" : pkts[3]
+    "11" : pkts[3],
 }
 
 # chosen random packets 
 pkts = rdpcap("RDPUDP_3.pcap")
 
-# print(type(pkts[0][IP].id))
-# pkts[1].show()
+print(pkts[0][IP].id)
+print(pkts[1][IP].id)
+print(pkts[2][IP].id)
+print(pkts[3][IP].id)
 
-
+ 
 from text_to_bit_codder import text_to_bits
 
 antygona = ""
@@ -46,17 +48,12 @@ with open("antygona.txt",encoding="utf8") as f:
 
 bits = text_to_bits(antygona) # 443032
 # print(len(bits))
-shorter_bits = bits[0:1000]
-
-for bit in shorter_bits:
-    if bit == '0':
-        #print()
-        # pkt = thisdict["0"]
-        # print(thisdict["0"][IP].id)
-        sendp(thisdict["0"])
-    elif bit == '1':
-        sendp(thisdict["1"])
-        # print(thisdict["1"][IP].id)
+shorter_bits = bits #$bits[0:1000]
+n = 2
+chunks = [shorter_bits[i:i+n] for i in range(0, len(shorter_bits), n)]
+for chunk in chunks:
+    print(chunk)
+    sendp(thisdict[chunk])
     time.sleep(0.001)
 print(shorter_bits)
 print(text_from_bits(shorter_bits))
