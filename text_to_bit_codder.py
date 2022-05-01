@@ -14,8 +14,19 @@ def text_from_bits(bits, encoding='ANSI', errors='ignore'):
     n = int(bits, 2)
     return n.to_bytes((n.bit_length() + 7) // 8, 'big').decode(encoding, errors) or '\0'
 
-for i in antygona[10:1000]:
-    print(len(text_to_bits(i)))
-    print(i)
+"""
+bits = text_to_bits(antygona[0:10])
+n = 2
+chunks = [bits[i:i+n] for i in range(0, len(bits), n)]
+for i in range(0,len(chunks),4):
+    chunk = chunks[i] + chunks[i+1] +  chunks[i+2] + chunks[i+3]
+    print(chunk)
+    print(text_from_bits(chunk))
+
+
+#    print(len(text_to_bits(i)))
+#    print(i)
 # print(bits)
-# print(text_from_bits(bits))
+
+print(text_from_bits(bits))
+"""

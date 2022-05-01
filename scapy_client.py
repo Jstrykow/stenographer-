@@ -2,6 +2,8 @@ from scapy.all import *
 from scapy.utils import rdpcap
 import time
 from text_to_bit_codder import text_from_bits, text_to_bits
+ 
+from text_to_bit_codder import text_to_bits
 """
 0 36287 0
 1 36338 1
@@ -32,28 +34,23 @@ thisdict = {
 
 # chosen random packets 
 pkts = rdpcap("RDPUDP_3.pcap")
-
+"""
 print(pkts[0][IP].id)
 print(pkts[1][IP].id)
 print(pkts[2][IP].id)
 print(pkts[3][IP].id)
+"""
 
- 
-from text_to_bit_codder import text_to_bits
 
 antygona = ""
-with open("antygona.txt",encoding="utf8") as f:
+with open("Sofokles-Antygona.txt",encoding="ANSI") as f:
     for line in f:
         antygona += line
 
-bits = text_to_bits(antygona) # 443032
-# print(len(bits))
-shorter_bits = bits #$bits[0:1000]
+bits = text_to_bits(antygona)
 n = 2
-chunks = [shorter_bits[i:i+n] for i in range(0, len(shorter_bits), n)]
+chunks = [bits[i:i+n] for i in range(0, len(bits), n)]
 for chunk in chunks:
-    print(chunk)
     sendp(thisdict[chunk])
     time.sleep(0.001)
-print(shorter_bits)
-print(text_from_bits(shorter_bits))
+# print(shorter_bits)
