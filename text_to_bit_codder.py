@@ -1,9 +1,10 @@
 
-
+"""
 antygona = ""
-with open("Sofokles-Antygona.txt",encoding="ANSI") as f:
+with open("received_antygona_1.txt",encoding="ANSI") as f:
     for line in f:
-        antygona += line
+
+"""        antygona += line
 
 # https://stackoverflow.com/questions/7396849/convert-binary-to-ascii-and-vice-versa
 def text_to_bits(text, encoding='ANSI', errors='surrogatepass'):
@@ -27,6 +28,10 @@ for i in range(0,len(chunks),4):
 #    print(len(text_to_bits(i)))
 #    print(i)
 # print(bits)
+"""
+"""
+text = text_from_bits(antygona)
 
-print(text_from_bits(bits))
+with open("received_antygona_1_decoded.txt", "w", encoding="ANSI" ) as f:
+    f.write(text)
 """
