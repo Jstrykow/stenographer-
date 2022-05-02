@@ -33,7 +33,6 @@ thisdict = {
 }
 
 # chosen random packets 
-pkts = rdpcap("RDPUDP_3.pcap")
 """
 print(pkts[0][IP].id)
 print(pkts[1][IP].id)
@@ -47,7 +46,7 @@ with open("Sofokles-Antygona.txt",encoding="ANSI") as f:
     for line in f:
         antygona += line
 
-bits = text_to_bits(antygona)
+bits = text_to_bits(antygona[8000:9000])
 n = 2
 chunks = [bits[i:i+n] for i in range(0, len(bits), n)]
 for chunk in chunks:

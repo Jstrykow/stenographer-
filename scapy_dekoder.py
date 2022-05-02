@@ -1,8 +1,9 @@
+from itertools import count
 from socket import timeout
 from scapy.all import *
 from text_to_bit_codder import text_from_bits, text_to_bits
 #ip.id == 36287 or ip.id == 36338 
-captures = sniff(timeout=400) #filter="dst 192.168.1.14 and udp")
+captures = sniff(count=20000) #filter="dst 192.168.1.14 and udp")
 
 bits = ''
 resolve_text = ""
@@ -23,7 +24,14 @@ for cap in captures:
                 resolve_text += str(text_from_bits(chunk))
                 chunk = ""
 print(resolve_text)
-with open("received_antygona_1.txt", "w", encoding="ANSI") as f:
+
+with open("received_antygona_2.txt", "w", encoding="ANSI") as f:
     f.write(bits)
 
-wrpcap('Captured_1.pcap', captures)
+with open("received_antygona_2_decoded.txt", "w", encoding="ANSI") as f:
+    try:
+        f.write(resolve_text)
+    except e:
+        pass
+
+wrpcap('Captured_host_3.pcap', captures)
